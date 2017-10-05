@@ -1,11 +1,14 @@
-from billogram_api import *
-from pyPdf import PdfFileWriter, PdfFileReader
-
 import base64
+import json
+from billogram_api import *
+
+# Import config file
+with open("config.json") as f: 
+	config_file = json.load(f)
 
 api = BillogramAPI(
-	'2519-T7ztRFnQ',
-	'3524023190713a62d1d35c7292bb9f7c',
+	config_file['username'],
+	config_file['password'],
 	api_base='https://sandbox.billogram.com/api/v2'
 )
 
@@ -21,14 +24,6 @@ for ev in bg['events'] :
 	if ev['data'] and 'letter_id' in ev['data'] :
 		try :
 			pdf_string = bg.get_invoice_pdf(letter_id=ev['data']['letter_id'])
-			# pdf_input = PdfFileReader(pdf)
-			# pdf_output = PdfFileWriter(pdf_input)
-			# out_put_stream = file("billogram-invoice.pdf", "wb")
-			# pdf_output.write(out_put_stream)
-			# out_put_stream.close()
-			
-			# pdf_string = pdf_string.encode('base64')
-			# pdf = base64.decodestring(pdf_string)
 
 			with open("test1.pdf", "wb") as f: 
 				f.write(pdf_string)
