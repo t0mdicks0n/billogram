@@ -1,5 +1,6 @@
 import base64
 import json
+import pprint
 from billogram_api import *
 
 # Import config file
@@ -20,12 +21,15 @@ bg = bgs[0]
 
 bg.refresh()
 
+idx = 0
 for ev in bg['events'] :
+	# To see the Billogram objects:
+	# pprint.pprint(ev['data'])
 	if ev['data'] and 'letter_id' in ev['data'] :
 		try :
 			pdf_string = bg.get_invoice_pdf(letter_id=ev['data']['letter_id'])
 
-			with open("test1.pdf", "wb") as f: 
+			with open("test_invoice_" + str(idx) + ".pdf", "wb") as f: 
 				f.write(pdf_string)
 
 		except BillogramExceptions.ObjectNotAvailableYetError :
@@ -36,3 +40,4 @@ for ev in bg['events'] :
 			# pdf was not found
 			print "PDF was not found"
 			pass
+	idx += 1
