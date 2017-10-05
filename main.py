@@ -36,24 +36,3 @@ for ev in bg['events'] :
 			# pdf was not found
 			print "PDF was not found"
 			pass
-		
-
-
-
-
-# billogram = api.billogram.create_and_send({
-#     'customer': {'customer_no': 1},
-#     'items': [
-#         {
-#             'item_no': '2', 'count': 6
-#         }, {
-#             'title': 'Work', 
-#             'unit': 'hour',
-#             'vat': 25, 
-#             'price': 300,
-#             'count': 2.50
-#         }
-#     ]
-# }, 'Email')
-# # print the OCR number
-# print billogram.ocr_number
